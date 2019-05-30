@@ -48,6 +48,9 @@ void CanClientFactory::RegisterCanClients() {
 
   Register(CANCardParameter::HERMES_CAN,
            []() -> CanClient* { return new can::HermesCanClient(); });
+
+  Register(CANCardParameter::DS_USB_CAN,
+           []() -> CanClient* { return new can::DsUsbCanClient(); });
 }
 
 std::unique_ptr<CanClient> CanClientFactory::CreateCANClient(
