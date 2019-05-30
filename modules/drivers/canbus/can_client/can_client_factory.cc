@@ -25,6 +25,8 @@
 
 #include "modules/drivers/canbus/can_client/hermes_can/hermes_can_client.h"
 
+#include "modules/drivers/canbus/can_client/ds_usb_can/ds_usb_can_client.h"
+
 #include "cyber/common/log.h"
 #include "modules/common/util/util.h"
 
