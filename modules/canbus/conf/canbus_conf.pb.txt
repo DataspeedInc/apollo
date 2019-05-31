@@ -10,6 +10,12 @@ can_card_parameter {
   channel_id: CHANNEL_ID_ZERO
 }
 
+can_card_parameter {
+  brand: DS_USB_CAN
+  type: USB_CARD
+  channel_id: CHANNEL_ID_TWO
+}
+
 enable_debug_mode: false
 enable_receiver_log: false
 enable_sender_log: false

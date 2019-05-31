@@ -3,6 +3,7 @@
  * @brief Interface to Dataspeed's USB CAN device
  **/
 
+#include "modules/drivers/canbus/can_client/ds_usb_can/ds_usb_can_client.h"
 #include "modules/drivers/canbus/common/byte.h"
 #include "modules/drivers/canbus/sensor_gflags.h"
 
@@ -25,9 +26,7 @@ bool DsUsbCanClient::Init(const CANCardParameter &parameter) {
 }
 
 DsUsbCanClient::~DsUsbCanClient() {
-  if (dev_handler_) {
-    Stop();
-  }
+  Stop();
 }
 
 ErrorCode DsUsbCanClient::Start() {
@@ -84,9 +83,6 @@ ErrorCode DsUsbCanClient::Receive(std::vector<CanFrame> *const frames,
   // TODO: Send CAN messages to Apollo here
   for (int32_t i = 0; i < *frame_num && i < MAX_CAN_RECV_FRAME_LEN; ++i) {
     CanFrame cf;
-    cf.id = recv_frames_[i].id;
-    cf.len = recv_frames_[i].len;
-    std::memcpy(cf.data, recv_frames_[i].data, recv_frames_[i].len);
     frames->push_back(cf);
   }
 

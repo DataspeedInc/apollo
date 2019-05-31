@@ -13,7 +13,7 @@ cc_library(
     deps = [
         "//modules/drivers/canbus:sensor_gflags",
         "//modules/drivers/canbus/can_client",
-        "//modules/drivers/canbus/common:canbus_common"
+        "//third_party/can_card_library/ds_usb_can:ds_usb_can_headers",
     ],
 )
 

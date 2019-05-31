@@ -13,6 +13,7 @@
 #include "modules/drivers/canbus/can_client/can_client.h"
 #include "modules/drivers/canbus/common/canbus_consts.h"
 #include "modules/drivers/canbus/proto/can_card_parameter.pb.h"
+#include "third_party/can_card_library/ds_usb_can/CanUsb.h"
 
 /**
  * @namespace apollo::drivers::canbus::can
@@ -80,10 +81,7 @@ class DsUsbCanClient : public CanClient {
   std::string GetErrorString(const int32_t status) override;
 
  private:
-  NTCAN_HANDLE dev_handler_;
   CANCardParameter::CANChannelId port_;
-  CMSG send_frames_[MAX_CAN_SEND_FRAME_LEN];
-  CMSG recv_frames_[MAX_CAN_RECV_FRAME_LEN];
 };
 
 }  // namespace can
