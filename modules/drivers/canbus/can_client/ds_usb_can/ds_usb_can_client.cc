@@ -26,7 +26,9 @@ bool DsUsbCanClient::Init(const CANCardParameter &parameter) {
 }
 
 DsUsbCanClient::~DsUsbCanClient() {
-  Stop();
+  if (dev_) {
+    Stop();
+  }
 }
 
 ErrorCode DsUsbCanClient::Start() {
@@ -35,16 +37,71 @@ ErrorCode DsUsbCanClient::Start() {
   }
 
   // open device
-  // return ErrorCode::CAN_CLIENT_ERROR_BASE;
+  dev_ = new CanUsb();
+  dev_->setRecvCallback(boost::bind(&DsUsbCanClient::recvDevice, this, _1, _2, _3, _4, _5));
+  
+  Channel channel;
+  channel.mode = 0;
+  channel.bitrate = 500000;
+  channels_.resize(CanUsb::MAX_CHANNELS, channel);
+  
+  if (dev_->open(mac_addr_)) {
+    if (dev_->reset()) {
+      bool success = true;
+      for (unsigned int i = 0; i < dev_->numChannels(); i++) {
+        for (unsigned int j = 0; j < channels_[i].filters.size(); j++) {
+          const uint32_t mask = channels_[i].filters[j].mask;
+          const uint32_t match = channels_[i].filters[j].match;
+          dev_->addFilter(i, mask, match);
+        }
+      }
+      for (unsigned int i = 0; i < dev_->numChannels(); i++) {
+        const int bitrate = i < channels_.size() ? channels_[i].bitrate : 0;
+        const uint8_t mode = i < channels_.size() ? channels_[i].mode : 0;
+        success &= dev_->setBitrate(i, bitrate, mode);
+      }
+      if (!success) {
+        dev_->reset();
+        dev_->closeDevice();
+        return ErrorCode::CAN_CLIENT_ERROR_OPEN_DEVICE_FAILED;
+      }
+    } else {
+      dev_->closeDevice();
+      return ErrorCode::CAN_CLIENT_ERROR_OPEN_DEVICE_FAILED;
+    }
+  } else {
+    return ErrorCode::CAN_CLIENT_ERROR_OPEN_DEVICE_FAILED;
+  }
 
   is_started_ = true;
   return ErrorCode::OK;
 }
 
+void DsUsbCanClient::recvDevice(unsigned int channel, uint32_t id, bool extended, uint8_t dlc, const uint8_t data[8])
+{
+  // if (channel < pubs_.size()) {
+  //   can_msgs::Frame msg;
+  //   msg.header.stamp = ros::Time::now();
+  //   msg.id = id;
+  //   msg.is_rtr = false;
+  //   msg.is_extended = extended;
+  //   msg.is_error = (dlc == 0x0F);
+  //   msg.dlc = dlc;
+  //   memcpy(msg.data.elems, data, 8);
+  //   if (msg.is_error && (channel < pubs_err_.size())) {
+  //     pubs_err_[channel].publish(msg);
+  //   } else {
+  //     pubs_[channel].publish(msg);
+  //   }
+  // }
+}
+
 void DsUsbCanClient::Stop() {
   if (is_started_) {
     is_started_ = false;
-    // Close here!
+    dev_->reset();
+    delete dev_;
+    dev_ = NULL;
   }
 }
 

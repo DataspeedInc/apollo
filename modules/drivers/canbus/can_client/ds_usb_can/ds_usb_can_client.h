@@ -81,7 +81,28 @@ class DsUsbCanClient : public CanClient {
   std::string GetErrorString(const int32_t status) override;
 
  private:
+  void recvDevice(unsigned int channel, uint32_t id, bool extended, uint8_t dlc, const uint8_t data[8]);
+
   CANCardParameter::CANChannelId port_;
+
+  // USB Device
+  CanUsb *dev_;
+
+  // Parameters
+  bool error_topic_;
+  std::string mac_addr_;
+  struct Filter {
+    uint32_t mask;
+    uint32_t match;
+  };
+  struct Channel {
+    Channel() : bitrate(0), mode(0) {}
+    int bitrate;
+    uint8_t mode;
+    std::vector<Filter> filters;
+  };
+  std::vector<Channel> channels_;
+
 };
 
 }  // namespace can
