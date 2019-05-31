@@ -65,10 +65,10 @@ private:
   std::queue<MessageBuffer> queue_;
 };
 
-CanUsb::CanUsb(lusb::UsbDevice *dev) : ready_(false), heap_dev_(false), dev_(dev), recv_callback_(NULL), version_major_(0), version_minor_(0), version_build_(0), version_comms_(0), serial_number_(0), num_channels_(0)
+CanUsb::CanUsb(UsbDevice *dev) : ready_(false), heap_dev_(false), dev_(dev), recv_callback_(NULL), version_major_(0), version_minor_(0), version_build_(0), version_comms_(0), serial_number_(0), num_channels_(0)
 {
   if (!dev_) {
-    dev_ = new lusb::UsbDevice(USB_VID, USB_PID, USB_MI);
+    dev_ = new UsbDevice(USB_VID, USB_PID, USB_MI);
     heap_dev_ = true;
   }
   queue_ = new TxQueue(100);
@@ -116,7 +116,7 @@ bool CanUsb::open(const std::string &mac)
         }
         dev_->close();
       } else {
-        std::vector<lusb::UsbDevice::Location> list;
+        std::vector<UsbDevice::Location> list;
         dev_->listDevices(list);
         for (size_t i = 0; i < list.size(); i++) {
           if (dev_->open(list[i])) {

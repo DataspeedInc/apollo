@@ -10,10 +10,10 @@ cc_library(
     ],
     linkopts = [
       "-lboost_thread",
-      "-lboost_function"
+      "-lusb-1.0"
     ],
     deps = [
-      "//third_party/can_card_library/ds_usb_can:ds_usb_can_headers"
+      "//third_party/can_card_library/ds_usb_can:ds_usb_can_headers",
     ],
     include_prefix = "ds_usb_can",
 )

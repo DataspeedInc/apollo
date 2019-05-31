@@ -102,7 +102,7 @@ private:
 
   bool ready_;
   bool heap_dev_;
-  lusb::UsbDevice *dev_;
+  UsbDevice *dev_;
   Callback recv_callback_;
   uint16_t version_major_;
   uint16_t version_minor_;

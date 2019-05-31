@@ -39,12 +39,12 @@ ErrorCode DsUsbCanClient::Start() {
   // open device
   dev_ = new CanUsb();
   dev_->setRecvCallback(boost::bind(&DsUsbCanClient::recvDevice, this, _1, _2, _3, _4, _5));
-  
+
   Channel channel;
   channel.mode = 0;
   channel.bitrate = 500000;
   channels_.resize(CanUsb::MAX_CHANNELS, channel);
-  
+
   if (dev_->open(mac_addr_)) {
     if (dev_->reset()) {
       bool success = true;
@@ -144,6 +144,10 @@ ErrorCode DsUsbCanClient::Receive(std::vector<CanFrame> *const frames,
   }
 
   return ErrorCode::OK;
+}
+
+std::string DsUsbCanClient::GetErrorString(int status) {
+  return std::string("DS USB CAN error");
 }
 
 }  // namespace can

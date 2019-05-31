@@ -37,9 +37,6 @@
 
 using namespace std;
 
-namespace lusb
-{
-
 static inline UsbDevice::Location locationFromLibUsbDevice(libusb_device *dev, const libusb_device_descriptor desc) {
   return UsbDevice::Location(libusb_get_bus_number(dev),
                              libusb_get_port_number(dev),
@@ -86,7 +83,7 @@ void UsbDevice::throwError(int err)
   error_code_ = (libusb_error)err;
   error_str_ = libusb_error_name(err);
   if (throw_errors_) {
-    throw lusb::UsbDeviceException((libusb_error)err, error_str_.c_str());
+    throw UsbDeviceException((libusb_error)err, error_str_.c_str());
   }
 }
 int UsbDevice::getLastError(std::string &str) const
@@ -358,6 +355,3 @@ void UsbDevice::startinterruptReadThread(Callback callback, unsigned char endpoi
   interrupt_threads_enable_[endpoint] = true;
   interrupt_threads_[endpoint] = boost::thread(&UsbDevice::interruptReadThread, this, callback, endpoint);
 }
-
-} //namespace lusb
-

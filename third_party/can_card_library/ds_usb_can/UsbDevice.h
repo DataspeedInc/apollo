@@ -43,9 +43,6 @@
 struct libusb_device_handle;
 struct libusb_context;
 
-namespace lusb
-{
-
 struct UsbDeviceException : public std::runtime_error
 {
   int error_code_;
@@ -169,7 +166,6 @@ private:
   bool interrupt_threads_enable_[128];
 
 };
-} //namespace lusb
 
 #endif /* USB_DEVICE_H_ */
 
