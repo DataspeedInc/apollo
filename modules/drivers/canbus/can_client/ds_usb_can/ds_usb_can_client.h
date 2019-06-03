@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 
 #include "gflags/gflags.h"
 #include "modules/common/proto/error_code.pb.h"
@@ -84,6 +85,7 @@ class DsUsbCanClient : public CanClient {
   void recvDevice(unsigned int channel, uint32_t id, bool extended, uint8_t dlc, const uint8_t data[8]);
 
   CANCardParameter::CANChannelId port_;
+  std::queue<CanFrame> recv_fifo_;
 
   // USB Device
   CanUsb *dev_;
