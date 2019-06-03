@@ -140,12 +140,16 @@ ErrorCode DsUsbCanClient::Receive(std::vector<CanFrame> *const frames,
     return ErrorCode::CAN_CLIENT_ERROR_FRAME_NUM;
   }
 
+  int32_t actual_num_frames = 0;
+  frames->clear();
   for (int32_t i = 0; i < *frame_num && i < MAX_CAN_RECV_FRAME_LEN; ++i) {
     if (recv_fifo_.size() > 0) {
       frames->push_back(recv_fifo_.front());
+      actual_num_frames++;
       recv_fifo_.pop();
     }
   }
+  *frame_num = actual_num_frames;
 
   return ErrorCode::OK;
 }
