@@ -187,7 +187,7 @@ if [ "$INCHINA" == "yes" ]; then
 fi
 
 if [ "$LOCAL_IMAGE" == "yes" ] && [ -z "$VERSION_OPT" ]; then
-    VERSION="local_dev"
+    VERSION=$VERSION_X86_64
 fi
 
 
