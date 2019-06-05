@@ -179,7 +179,7 @@ else
 fi
 
 if [ -z "${DOCKER_REPO}" ]; then
-    DOCKER_REPO=apolloauto/apollo
+    DOCKER_REPO=dataspeedinc/apollo
 fi
 
 if [ "$INCHINA" == "yes" ]; then
