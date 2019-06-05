@@ -34,7 +34,9 @@ uint32_t Throttle62::GetPeriod() const {
 }
 
 void Throttle62::UpdateData(uint8_t *data) {
+
   set_pedal_p(data, pedal_cmd_);
+  set_enable_pedal_per(data, 2);  
   set_enable_p(data, pedal_enable_);
   set_clear_driver_override_flag_p(data, clear_driver_override_flag_);
   set_ignore_driver_override_p(data, ignore_driver_override_);
@@ -83,6 +85,18 @@ void Throttle62::set_pedal_p(uint8_t *data, double pedal) {
   Byte frame_high(data + 1);
   frame_high.set_value(t, 0, 8);
 }
+
+
+void Throttle62::set_enable_pedal_per(uint8_t *data, int pedal) {
+  Byte frame(data + 2);
+  frame.set_value(static_cast<uint8_t>(pedal), 4, 4);
+  //if (enable) {
+    //frame.set_bit_1(0);
+  //} else {
+    //frame.set_bit_0(0);
+  //}
+}
+
 
 void Throttle62::set_enable_p(uint8_t *bytes, bool enable) {
   Byte frame(bytes + 3);

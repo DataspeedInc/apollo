@@ -29,7 +29,7 @@ TEST(Throttle62Test, General) {
 
   EXPECT_EQ(data[0], 0b00000000);
   EXPECT_EQ(data[1], 0b00000000);
-  EXPECT_EQ(data[2], 0b01100011);
+  EXPECT_EQ(data[2], 0b00100011);
   EXPECT_EQ(data[3], 0b01100000);
   EXPECT_EQ(data[4], 0b01010001);
   EXPECT_EQ(data[5], 0b01010010);

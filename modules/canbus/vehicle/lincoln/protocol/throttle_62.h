@@ -91,6 +91,7 @@ class Throttle62 : public ::apollo::drivers::canbus::ProtocolData<
    * 'physical_unit': '"%"'}
    */
   void set_pedal_p(uint8_t *data, double pcmd);
+  void set_enable_pedal_per(uint8_t *data, int pedal);
 
   /**
    * config detail: {'name': 'en', 'offset': 0.0, 'precision': 1.0, 'len': 1,

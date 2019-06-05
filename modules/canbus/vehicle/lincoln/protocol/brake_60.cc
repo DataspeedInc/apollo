@@ -34,6 +34,7 @@ uint32_t Brake60::GetPeriod() const {
 
 void Brake60::UpdateData(uint8_t *data) {
   set_pedal_p(data, pedal_cmd_);
+  set_enable_pedal_per(data, 2);
   set_boo_cmd_p(data, boo_cmd_);
   set_enable_p(data, pedal_enable_);
   set_clear_driver_override_flag_p(data, clear_driver_override_flag_);
@@ -95,6 +96,12 @@ void Brake60::set_pedal_p(uint8_t *data, double pedal) {
   t = static_cast<uint8_t>(x & 0xFF);
   Byte frame_high(data + 1);
   frame_high.set_value(t, 0, 8);
+}
+
+
+void Brake60::set_enable_pedal_per(uint8_t *data, int pedal) {
+  Byte frame(data + 2);
+  frame.set_value(static_cast<uint8_t>(pedal), 4, 4);
 }
 
 void Brake60::set_boo_cmd_p(uint8_t *bytes, bool boo_cmd) {

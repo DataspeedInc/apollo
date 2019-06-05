@@ -34,7 +34,7 @@ TEST_F(Brake60Test, simple) {
   brake.UpdateData(data);
   EXPECT_EQ(data[0], 0b00000000);
   EXPECT_EQ(data[1], 0b00000000);
-  EXPECT_EQ(data[2], 0b01100010);
+  EXPECT_EQ(data[2], 0b00100010);
   EXPECT_EQ(data[3], 0b01100100);
   EXPECT_EQ(data[4], 0b01100101);
   EXPECT_EQ(data[5], 0b01100110);

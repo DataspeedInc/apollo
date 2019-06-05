@@ -96,7 +96,7 @@ class Brake60 : public ::apollo::drivers::canbus::ProtocolData<
    * 'physical_unit': '"%"'}
    */
   void set_pedal_p(uint8_t *data, double pedal);
-
+  void set_enable_pedal_per(uint8_t *data, int pedal);  
   /**
    * config detail: {'name': 'bcmd', 'offset': 0.0, 'precision': 1.0, 'len': 1,
    * 'f_type': 'valid', 'is_signed_var': False, 'physical_range': '[0|0]',
