@@ -21,6 +21,8 @@
 
 DEFINE_string(vehicle_data_path, "modules/calibration/data/mkz_example",
               "Vehicle data path.");
+//DEFINE_string(vehicle_data_path, "modules/calibration/data/pacifica_example",
+  //            "Vehicle data path.");
 
 int main(int argc, char **argv) {
   FLAGS_logtostderr = true;
