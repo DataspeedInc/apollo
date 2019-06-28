@@ -30,6 +30,7 @@ source "${DIR}/apollo_base.sh"
 # E.g.: modules/calibration/data/mkz8
 
 VEHICLE_PATH=$1
+echo "Changing Vehicles"
 if [ -d ${VEHICLE_PATH} ]; then
   ${APOLLO_BIN_PREFIX}/modules/dreamview/backend/hmi/vehicle_manager_main \
       --vehicle_data_path="${VEHICLE_PATH}"

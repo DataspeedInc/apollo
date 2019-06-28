@@ -29,6 +29,7 @@ source "${DIR}/apollo_base.sh"
 function start() {
     ./scripts/monitor.sh start
     ./scripts/dreamview.sh start
+    echo "The is a test Dreamview platform"
     if [ $? -eq 0 ]; then
         sleep 2  # wait for some time before starting to check
         http_status="$(curl -o /dev/null -I -L -s -w '%{http_code}' ${DREAMVIEW_URL})"
@@ -43,6 +44,7 @@ function start() {
 function stop() {
     ./scripts/dreamview.sh stop
     ./scripts/monitor.sh stop
+    echo "Closing the test platform"
 }
 
 case $1 in
