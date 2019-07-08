@@ -269,7 +269,7 @@ class MPCController : public Controller {
 
   // Enable the feedback-gain-related compensation components in the feedfoward
   // term for steering control
-  bool enable_mpc_feedforward_compensation_ = false;
+  bool enable_mpc_feedforward_compensation_ = true;
 
   // Limitation for judging if the unconstraint analytical control is close
   // enough to the solver's output with constraint
