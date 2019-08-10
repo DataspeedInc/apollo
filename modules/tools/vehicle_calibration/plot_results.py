@@ -36,7 +36,7 @@ if len(sys.argv) < 2:
 with open(sys.argv[1], 'r') as f:
    cmd_table = {}
 
-    for line in f:
+   for line in f:
         items = line.split(',')
         cmd = round(float(items[0]))
         speed = float(items[1])
